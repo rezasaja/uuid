@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
 
-class Nama extends Model
+class Karyawan extends Model
 {
     use HasFactory;
     use HasUuid;
 
-    protected $table = "nama";
+    protected $table = "karyawan";
     protected $guarded = ['id', 'created_at', 'updated_at'];
 }

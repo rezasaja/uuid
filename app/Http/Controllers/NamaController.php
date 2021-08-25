@@ -9,7 +9,7 @@ class NamaController extends Controller
 {
     public function index()
     {
-        $nama = Nama::paginate(5);
+        $nama = Nama::paginate(15);
         return $nama;
     }
 
