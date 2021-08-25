@@ -19,6 +19,7 @@ class CreateNamasTable extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

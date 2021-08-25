@@ -24,4 +24,11 @@ class KaryawanController extends Controller
 
         return $karyawan;
     }
+
+    public function destroy($id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->delete();
+        return response(['Data Sudah Di Hapus']);
+    }
 }

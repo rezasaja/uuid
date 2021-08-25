@@ -22,4 +22,11 @@ class NamaController extends Controller
 
         return $nama;
     }
+
+    public function destroy($id)
+    {
+        $nama = Nama::find($id);
+        $nama->delete();
+        return response(['Data Sudah Di Hapus']);
+    }
 }

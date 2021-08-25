@@ -19,6 +19,7 @@ class CreateKaryawansTable extends Migration
             $table->string('nama');
             $table->string('jabatan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
