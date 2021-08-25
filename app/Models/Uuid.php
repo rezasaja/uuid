@@ -11,10 +11,15 @@ class Uuid extends Model
     use HasFactory;
     // protected $table = "uuid";
 
-    protected static function boot(){
+    protected $primarykey = 'uuid';
+
+    protected static function boot()
+    {
+        parent::boot();
+
         static::creating(function ($model){
             if (!$model->getKey()){
-                $model->{$model->getKeyName()} = (string) Str::uuid();
+                $model->{$model->getKeyName()}=(string) Str::uuid();
             }
         });
     }
