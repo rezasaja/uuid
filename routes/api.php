@@ -16,7 +16,9 @@ use App\Http\Controllers\KaryawanController;
 |
 */
 
+Route::get('nama/list', [NamaController::class, 'list']);
 Route::resource('nama', NamaController::class);
+Route::get('karyawan/list', [KaryawanController::class, 'list']);
 Route::resource('karyawan', KaryawanController::class);
 Route::get('nama/search/{nama}', [NamaController::class, 'search']);
 Route::get('karyawan/search/{karyawan}', [KaryawanController::class, 'search']);

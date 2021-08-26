@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nama;
+use App\Http\Resources\NamaResource;
+use App\Http\Resources\NamaCollection;
 
 class NamaController extends Controller
 {
     public function index()
     {
-        $nama = Nama::paginate(15);
-        return $nama;
+        $nama = Nama::paginate(5);
+        return new NamaCollection($nama);
+    }
+
+    public function list()
+    {
+        $nama = Nama::get();
+        return new NamaCollection($nama);
     }
 
     public function store()

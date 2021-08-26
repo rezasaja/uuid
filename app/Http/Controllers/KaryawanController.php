@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Karyawan;
+use App\Http\Resources\KaryawanResource;
+use App\Http\Resources\KaryawanCollection;
 
 use Illuminate\Http\Request;
 
@@ -11,8 +13,14 @@ class KaryawanController extends Controller
 
     public function index()
     {
-        $karyawan = Karyawan::paginate(10);
-        return $karyawan;
+        $karyawan = Karyawan::paginate(5);
+        return new KaryawanCollection($karyawan);
+    }
+
+    public function list()
+    {
+        $karyawan = Karyawan::get();
+        return new KaryawanCollection($karyawan);
     }
 
     public function store()
@@ -47,10 +55,20 @@ class KaryawanController extends Controller
 
     public function search($nama)
     {
-        $karyawan = Karyawan::firstWhere('nama', $nama);
+        $karyawan = Karyawan::where('nama', $nama);
         if($karyawan != null){
             return $karyawan;
         }
         return ['Data Tidak Ditemukan'];
     }
+
+ public function update($uuid)
+ {
+     $karyawan = Karyawan::firstWhere('uuid', $uuid);
+     if($karyawan != null){
+         $karyawan->update();
+         return $karyawan;
+     }
+     return ['Data Tidak Di Temukan'];
+ }
 }
