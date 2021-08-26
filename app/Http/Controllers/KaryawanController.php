@@ -25,10 +25,23 @@ class KaryawanController extends Controller
         return $karyawan;
     }
 
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $karyawan = Karyawan::find($id);
-        $karyawan->delete();
-        return response(['Data Sudah Di Hapus']);
+        $karyawan = Karyawan::firstwhere('uuid', $uuid);
+        if($karyawan != null){
+            $karyawan->delete();
+            return response(['Data Sudah Di hapus']);
+        }
+        return response(['Data Tidak Di Temukan']);
+
+    }
+
+    public function show($uuid)
+    {
+        $karyawan = Karyawan::firstWhere('uuid', $uuid);
+        if($karyawan != null){
+            return $karyawan;
+        }
+        return ['Data Tidak Di Temukan'];
     }
 }

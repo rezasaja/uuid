@@ -23,10 +23,22 @@ class NamaController extends Controller
         return $nama;
     }
 
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $nama = Nama::find($id);
-        $nama->delete();
-        return response(['Data Sudah Di Hapus']);
+        $nama = Nama::firstwhere('uuid', $uuid);
+        if($nama != null){
+            $nama->delete();
+            return response(['Data Sudah Di Hapus']);
+        }
+        return response(['Data Tidak Ada']);
+    }
+
+    public function show($uuid)
+    {
+        $nama = Nama::firstWhere('uuid', $uuid);
+        if($nama != null){
+            return $nama;
+        }
+        return ['Data Tidak Di Temukan'];
     }
 }
