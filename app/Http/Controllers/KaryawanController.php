@@ -25,14 +25,34 @@ class KaryawanController extends Controller
 
     public function store()
     {
-        $karyawan = new Karyawan;
+        $karyawan = $this->save();
+        return $karyawan;
+    }
+
+    public function update($uuid)
+    {
+        $karyawan = $this->save($uuid);
+        return $karyawan;
+    }
+
+    public function save($uuid = null)
+    {
+        if($uuid){
+            $karyawan = Karyawan::firstWhere('uuid', $uuid);
+        }else{
+            $karyawan = new Karyawan;
+        }
         $karyawan->nama = request()->nama;
         $karyawan->jabatan = request()->jabatan;
         $karyawan->save();
 
-        return $karyawan;
-    }
+        return response()->json([
+            'message' => 'Data Di Simpan',
+            'Data' => $karyawan
+        ], 201);
 
+
+    }
     public function destroy($uuid)
     {
         $karyawan = Karyawan::firstwhere('uuid', $uuid);
@@ -62,13 +82,4 @@ class KaryawanController extends Controller
         return ['Data Tidak Ditemukan'];
     }
 
- public function update($uuid)
- {
-     $karyawan = Karyawan::firstWhere('uuid', $uuid);
-     if($karyawan != null){
-         $karyawan->update();
-         return $karyawan;
-     }
-     return ['Data Tidak Di Temukan'];
- }
 }

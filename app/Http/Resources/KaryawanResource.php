@@ -17,6 +17,7 @@ class KaryawanResource extends JsonResource
         return [
             'nama_lengkap' => $this->nama,
             'jabatan' => $this->jabatan,
+            'uuid' => $this->uuid
         ];
     }
 }
