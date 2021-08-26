@@ -41,4 +41,13 @@ class NamaController extends Controller
         }
         return ['Data Tidak Di Temukan'];
     }
+
+    public function search($nama)
+    {
+        $nama = Nama::firstWhere('nama', $nama);
+        if($nama != null){
+            return $nama;
+        }
+        return ['Data Tidak Ditemukan'];
+    }
 }

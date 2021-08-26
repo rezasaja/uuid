@@ -18,6 +18,8 @@ use App\Http\Controllers\KaryawanController;
 
 Route::resource('nama', NamaController::class);
 Route::resource('karyawan', KaryawanController::class);
+Route::get('nama/search/{nama}', [NamaController::class, 'search']);
+Route::get('karyawan/search/{karyawan}', [KaryawanController::class, 'search']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

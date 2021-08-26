@@ -44,4 +44,13 @@ class KaryawanController extends Controller
         }
         return ['Data Tidak Di Temukan'];
     }
+
+    public function search($nama)
+    {
+        $karyawan = Karyawan::firstWhere('nama', $nama);
+        if($karyawan != null){
+            return $karyawan;
+        }
+        return ['Data Tidak Ditemukan'];
+    }
 }
