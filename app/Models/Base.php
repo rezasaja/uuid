@@ -9,11 +9,16 @@ use App\Traits\HasUuid;
 
 class Base extends Model
 {
-    use HasFactory, SoftDeletes, HasFactory, HasUuid;
+    use HasFactory, SoftDeletes, HasUuid;
 
 
-    // public function scopeFindByUuid($query, $uuid)
-    // {
-    //     return $query->where('uuid', $uuid);
-    // }
+    public function scopeFindByUuid($query, $uuid)
+    {
+        return $query->where('uuid', $uuid);
+    }
+
+    public function scopeFindByNama($query, $nama)
+    {
+        return $query->where('nama', $nama);
+    }
 }

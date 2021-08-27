@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Karyawan;
+// use App\Models\Karyawan;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\KaryawanResource;
 use App\Http\Resources\KaryawanCollection;
+
+// di composer.json buat aktifkan namespace services
+use Facades\Services\KaryawanService as Karyawan;
+// lalu composer dump-autoload
 
 use Illuminate\Http\Request;
 
@@ -13,73 +18,79 @@ class KaryawanController extends Controller
 
     public function index()
     {
-        $karyawan = Karyawan::paginate(5);
+        $karyawan = Karyawan::GetPaginate();
         return new KaryawanCollection($karyawan);
     }
 
     public function list()
     {
-        $karyawan = Karyawan::get();
+        $karyawan = Karyawan::getAll();
         return new KaryawanCollection($karyawan);
     }
 
     public function store()
     {
-        $karyawan = $this->save();
-        return $karyawan;
+        return Karyawan::save();
+        // $karyawan = $this->save();
+        // return $karyawan;
     }
 
     public function update($uuid)
     {
-        $karyawan = $this->save($uuid);
-        return $karyawan;
+        return Karyawan::save($uuid);
+        // $karyawan = $this->save($uuid);
+        // return $karyawan;
     }
 
-    public function save($uuid = null)
-    {
-        if($uuid){
-            $karyawan = Karyawan::firstWhere('uuid', $uuid);
-        }else{
-            $karyawan = new Karyawan;
-        }
-        $karyawan->nama = request()->nama;
-        $karyawan->jabatan = request()->jabatan;
-        $karyawan->save();
+    // public function save($uuid = null)
+    // {
+    //     if($uuid){
+    //         $karyawan = Karyawan::firstWhere('uuid', $uuid);
+    //     }else{
+    //         $karyawan = new Karyawan;
+    //     }
+    //     $karyawan->nama = request()->nama;
+    //     $karyawan->jabatan = request()->jabatan;
+    //     $karyawan->save();
 
-        return response()->json([
-            'message' => 'Data Di Simpan',
-            'Data' => $karyawan
-        ], 201);
+    //     return response()->json([
+    //         'message' => 'Data Di Simpan',
+    //         'Data' => $karyawan
+    //     ], 201);
 
 
-    }
+    // }
     public function destroy($uuid)
     {
-        $karyawan = Karyawan::firstwhere('uuid', $uuid);
-        if($karyawan != null){
-            $karyawan->delete();
-            return response(['Data Sudah Di hapus']);
-        }
-        return response(['Data Tidak Di Temukan']);
+
+        return Karyawan::delete($uuid);
+        // $karyawan = Karyawan::firstwhere('uuid', $uuid);
+        // if($karyawan != null){
+        //     $karyawan->delete();
+        //     return response(['Data Sudah Di hapus']);
+        // }
+        // return response(['Data Tidak Di Temukan']);
 
     }
 
     public function show($uuid)
     {
-        $karyawan = Karyawan::firstWhere('uuid', $uuid);
-        if($karyawan != null){
-            return $karyawan;
-        }
-        return ['Data Tidak Di Temukan'];
+        return Karyawan::find($uuid);
+        // $karyawan = Karyawan::firstWhere('uuid', $uuid);
+        // if($karyawan != null){
+        //     return $karyawan;
+        // }
+        // return ['Data Tidak Di Temukan'];
     }
 
     public function search($nama)
     {
-        $karyawan = Karyawan::where('nama', $nama);
-        if($karyawan != null){
-            return $karyawan;
-        }
-        return ['Data Tidak Ditemukan'];
+        return Karyawan::findName($nama);
+        // $karyawan = Karyawan::where('nama', $nama);
+        // if($karyawan != null){
+        //     return $karyawan;
+        // }
+        // return ['Data Tidak Ditemukan'];
     }
 
 }

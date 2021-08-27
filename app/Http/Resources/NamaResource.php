@@ -15,7 +15,7 @@ class NamaResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'Nama' => $this->nama,
+            'Nama Anda' => $this->nama,
             'Alamat' => $this->alamat,
         ];
     }
